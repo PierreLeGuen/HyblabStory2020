@@ -10,6 +10,7 @@ class Contexte extends View {
             this.text1 = document.getElementById('context-1');
             this.text2 = document.getElementById('context-2');
             this.text3 = document.getElementById('context-3');
+            this.text3 = document.getElementById('context-4');
             this.contact = document.getElementById('contexte-contact');
             this.contact.addEventListener('click', ()=>{
                 this.contact.className = "contexte-done";
@@ -21,6 +22,10 @@ class Contexte extends View {
                 if(this.position == 3){
                     this.text2.className = "contexte-nonActive";
                     this.text3.className = "contexte-active";
+                }
+                if(this.position == 4){
+                    this.text3.className = "contexte-nonActive";
+                    this.text4.className = "contexte-active";
                 }
                 this.switchToContact();
             });
@@ -36,6 +41,10 @@ class Contexte extends View {
                     this.text2.className = "contexte-nonActive";
                     this.text3.className = "contexte-active";
                 }
+                if(this.position == 3){
+                    this.text3.className = "contexte-nonActive";
+                    this.text4.className = "contexte-active";
+                }
                 this.switchToReseau();
             });
             this.info = document.getElementById('contexte-info');
@@ -50,7 +59,29 @@ class Contexte extends View {
                     this.text2.className = "contexte-nonActive";
                     this.text3.className = "contexte-active";
                 }
+                if(this.position == 4){
+                    this.text3.className = "contexte-nonActive";
+                    this.text4.className = "contexte-active";
+                }
                 this.switchToInfo();
+            });
+            this.photo = document.getElementById('contexte-photo');
+            this.photo.addEventListener('click', ()=>{
+                this.photo.className = "contexte-done";
+                this.position = this.position+1;
+                if(this.position == 2){
+                    this.text1.className = "contexte-nonActive";
+                    this.text2.className = "contexte-active";
+                }
+                if(this.position == 3){
+                    this.text2.className = "contexte-nonActive";
+                    this.text3.className = "contexte-active";
+                }
+                if(this.position == 4){
+                    this.text3.className = "contexte-nonActive";
+                    this.text4.className = "contexte-active";
+                }
+                this.switchToPhoto();
             });
 
             // Background elements
@@ -130,6 +161,29 @@ class Contexte extends View {
 
         // Création de la prochaine view
         const nextView = new View11(tempDiv);
+
+        this.view.style.animation = 'scrollTransition 1s forwards';
+        this.view.style.webkitAnimation = 'scrollTransition 1s forwards';
+        tempDiv.style.animation = 'scrollTransition 1s forwards';
+        tempDiv.style.webkitAnimation = 'scrollTransition 1s forwards';
+        setTimeout(() => {
+            document.getElementById('view-container').innerHTML = '';
+            document.getElementById('view-container').appendChild(nextView.view);
+            this.view.style.animation = '';
+            this.view.style.webkitAnimation = '';
+        }, 1000);
+    }
+    async switchToPhoto(){
+        scrollPosition(1);
+        // Construction d'une div temporaire positionnée en dehors
+        // de l'écran pour faire entrer la prochaine view
+        const tempDiv = document.createElement('div');
+        document.getElementById('view-container').appendChild(tempDiv);
+        tempDiv.style.position = "absolute";
+        tempDiv.style.top = '100%';
+
+        // Création de la prochaine view
+        const nextView = new View2(tempDiv);
 
         this.view.style.animation = 'scrollTransition 1s forwards';
         this.view.style.webkitAnimation = 'scrollTransition 1s forwards';
